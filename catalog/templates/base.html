@@ -1,0 +1,99 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% block title %}<title>FREESHELF</title>{% endblock %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://unpkg.com/tachyons/css/tachyons.min.css">
+{% block meta %}{% endblock %}
+</head>
+{% load static %} 
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+<body>
+  <content>
+  {% block content %}
+
+<nav class="pa3 pa4-ns">
+    <a class="link dim black b f1 f-headline-ns tc db mb3 mb4-ns" href="#" title="Home">.freeshelf</a>
+    <div class="tc pb3">
+      <a class="link dim gray f6 f5-ns dib mr3" href="{% url 'base' %}">Home</a>
+      <a class="link dim gray f6 f5-ns dib mr3" href="{% url 'books' %}">Books</a>
+      {% if request.user.is.authenticated %}
+      <div class="link dim gray f6 f5-ns dib mr3"> 
+      {{ user.username }}</div>
+      <a class="link dim gray f6 f5-ns dib mr3" href="{% url 'auth_logout' %}">logout</a> 
+      
+      {% else %}
+
+      <a class="link dim gray f6 f5-ns dib mr3" href="{% url 'auth_login' %}">Register/login</a>
+    {% endif %}
+    </div>
+  </nav>
+  
+  <section class="mw7 center">
+    <h1 class="athelas ph6 ph0-l"> About Us </h1>
+  </section>
+  
+  
+  <section class="mw7 center">
+    <h2 class="athelas ph3 ph0-l"><a class="link dim black ph3 ph0-l" href="{{ book.get_absolute_url }}">Welcome To Freeshelf</a></h2>
+    <article class="pv4 bt bb b--black-10 ph3 ph0-l">
+      <div class="flex flex-column flex-row-ns">
+        <div class="w-100 w-60-ns pr3-ns order-2 order-1-ns">
+          <h1 class="f3 athelas mt0 lh-title">                   </h1>
+          <p class="f5 f4-l lh-copy athelas">
+            freeshelf is a non profit student run e-library focused on providing future coders the free tools they need to step into the world of programming. All of the books listed on our site are free and available to download through our providers respective websites. freeshelf is dedicated to holding the torch that illuminates the path into the 21st century. 
+          </p>
+        </div>
+        <h1> 
+        
+        
+      </div>
+      <p class="f6 lh-copy gray mv0">  <span class="ttu"> {{ book.author }}</span></p>
+      <p class="f6 lh-copy gray mv0">  <span class="ttu"> {{ book.category }}</span></p>
+      
+      <time class="f6 db gray">{{ book.date_added }}</time>
+    </article>
+    
+    
+    
+  </section>
+
+
+ 
+  
+
+
+
+    
+    
+   
+       
+   
+
+{% endblock %}
+
+{% block pagination %}
+    {% if is_paginated %}
+        <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+                <span class="page-current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+                {% endif %}
+            </span>
+        </div>
+    {% endif %}
+  {% endblock %} 
+</content>
+</body>
+
+</html>

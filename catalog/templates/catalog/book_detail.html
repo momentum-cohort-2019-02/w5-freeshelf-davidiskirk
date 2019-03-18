@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% block title %}<title>FREESHELF</title>{% endblock %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://unpkg.com/tachyons/css/tachyons.min.css">
+</head>
+{% load static %} 
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+<body>
+{% block content %}
+
+<nav class="pa3 pa4-ns">
+    <a class="link dim black b f1 f-headline-ns tc db mb3 mb4-ns" href="#" title="Home">.freeshelf</a>
+    <div class="tc pb3">
+      <a class="link dim gray f6 f5-ns dib mr3" href="{% url 'base' %}">Home</a>
+      <a class="link dim gray f6 f5-ns dib mr3" href="{% url 'books' %}">Books</a>
+      {% if request.user.is.authenticated %}
+      <div class="link dim gray f6 f5-ns dib mr3"> 
+      {{ user.username }}</div>
+      <a class="link dim gray f6 f5-ns dib mr3" href="{% url 'auth_logout' %}">logout</a> 
+      
+      {% else %}
+
+      <a class="link dim gray f6 f5-ns dib mr3" href="{% url 'auth_login' %}">Register/login</a>
+    {% endif %}
+    </div>
+  </nav>
+  <section class="mw7 center">
+    <h2 class="athelas ph3 ph0-l"> <a class="link dim black ph3 ph0-l" href="{{ book.get_absolute_url }}">Title:{{ book.title }}</a></h2>
+    <h4 class="athelas ph3 ph0-l"> <a class="link dim black ph3 ph0-l" href="{{ book.get_absolute_url }}">Author:{{ book.author }}</a></h4>
+    <h4 class="athelas ph3 ph0-l"> <a class="link dim black ph3 ph0-l" href="{{ book.get_absolute_url }}">URL:{{ book.website }}</a></h4>
+    <h4 class="athelas ph3 ph0-l"> <a class="link dim black ph3 ph0-l" href="{{ book.get_absolute_url }}">Date Added:{{ book.date_added }}</a></h4>
+    <h4 class="athelas ph3 ph0-l"> <a class="link dim black ph3 ph0-l" href="{{ book.get_absolute_url }}">Summary:{{ book.summary }}</a></h4>
+    
+  
+   
+
+ 
+    
+{% endblock %}
+
